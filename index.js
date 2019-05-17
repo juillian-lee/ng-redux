@@ -1,12 +1,8 @@
 #! /usr/bin/env node
 
-const program = require('commander');
 const inquirer = require('inquirer');
-const package = require('./package.json');
 const fs = require('fs');
 const chalk = require('chalk');
-
-program.version(package.version);
 
 
 const FILES = [
@@ -42,14 +38,6 @@ const FILES = [
 
 
 
-const prompt = [
-    {
-        type: 'input',
-        name: 'store',
-        message: 'Qual o nome da sua store',
-        validate: value => value ? true : 'Não é permitido vázio'
-    }
-]
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
@@ -64,9 +52,9 @@ function replaceNames(storeName, string) {
 async function createFile(storeName, f) {
     const fileName = f.file.replace('##STATE_NAME##', storeName.toLowerCase());
     console.log(`${chalk.magenta('Criando o arquivo: ' + fileName +  ' com base no Template: ' + f.template)}`);
-    const content = replaceNames(storeName, fs.readFileSync(f.template, 'utf8'));
-    if(!fs.existsSync(`${storeName}/${fileName}`)) {
-        await fs.writeFileSync(`${storeName}/${fileName}`, content);
+    const content = replaceNames(storeName, fs.readFileSync(`${__dirname}/${f.template}`, 'utf8'));
+    if(!fs.existsSync(`${process.cwd()}/${storeName}/${fileName}`)) {
+        await fs.writeFileSync(`${process.cwd()}/${storeName}/${fileName}`, content);
         console.log(`${chalk.magenta('Arquivo : ' + fileName +  ' Gerado com sucesso')}`);
     } else {
         console.log(`${chalk.red('Arquivo : ' + fileName +  ' já existe....')}`);
@@ -74,22 +62,26 @@ async function createFile(storeName, f) {
     
 }
 
-program
-    .command('generate')
-    .description('Criar a estrutura de redux de uma store em angular')
-    .action(async (_) => {
-        perguntas = await inquirer.prompt(prompt);
-        console.log(`${chalk.green('Gerando os arquivos com o nome: ' + perguntas.store)}`);
-        const storeName = perguntas.store.toLowerCase();
-        if(!fs.existsSync(storeName)) {
-            console.log(`${chalk.green('Criando o diretorio da store!')}`);
-            fs.mkdirSync(`${__dirname}/${storeName}`);
+async function exec() {
+    perguntas = await inquirer.prompt([
+        {
+            type: 'input',
+            name: 'store',
+            message: 'Qual o nome da sua store',
+            validate: value => value ? true : 'Não é permitido vázio'
         }
+    ]);
+    console.log(`${chalk.green('Gerando os arquivos com o nome: ' + perguntas.store)}`);
+    const storeName = perguntas.store.toLowerCase();
+    if(!fs.existsSync(`${process.cwd()}/${storeName}`)) {
+        console.log(`${chalk.green('Criando o diretorio da store!')}`);
+        fs.mkdirSync(`${process.cwd()}/${storeName}`);
+    }
 
-        for(let i in FILES) {
-            await createFile(storeName, FILES[i]);
-        }
-        console.log(`${chalk.green('Processo realizado com sucesso!')}`);
-    });
+    for(let i in FILES) {
+        await createFile(storeName, FILES[i]);
+    }
+    console.log(`${chalk.green('Processo realizado com sucesso!')}`);
+}
 
-program.parse(process.argv);
+exec();
