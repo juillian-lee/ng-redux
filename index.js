@@ -1,13 +1,13 @@
-const program = require('commander');
-const inquirer = require('inquirer');
-const package = require('./package.json');
-const fs = require('fs');
-const chalk = require('chalk');
+var program = require('commander');
+var inquirer = require('inquirer');
+var package = require('./package.json');
+var fs = require('fs');
+var chalk = require('chalk');
 
 program.version(package.version);
 
 
-const FILES = [
+var FILES = [
     {
         template: 'templates/template-store.module.template',
         file: '##STATE_NAME##-store.module.ts'
