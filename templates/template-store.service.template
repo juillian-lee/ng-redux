@@ -1,0 +1,31 @@
+import { Injectable } from "@angular/core";
+
+import { Store, createFeatureSelector, createSelector } from '@ngrx/store';
+
+import { AppState } from '../app.reducer';
+import * as actions from './##STATE_NAME##.actions';
+import * as state from './##STATE_NAME##.state';
+
+@Injectable()
+export class ##STATE_NAME_CLASS##StoreService {
+
+  constructor(private store: Store<AppState>) { }
+
+  private ##STATE_NAME##State = createFeatureSelector<state.##STATE_NAME_CLASS##State>(state.STATE_NAME);
+  private isLoading = createSelector(this.##STATE_NAME##State, state.selectIsLoading);
+  private ##STATE_NAME##s = createSelector(this.##STATE_NAME##State, state.select##STATE_NAME_CLASS##s);
+
+
+  getIsLoading() {
+    return this.store.select(this.isLoading);
+  }
+
+  get##STATE_NAME_CLASS##s() {
+    return this.store.select(this.##STATE_NAME##s);
+  }
+
+  dispatchList##STATE_NAME_CLASS##Action() {
+    this.store.dispatch(new actions.List##STATE_NAME_CLASS##Action());
+  }
+
+}

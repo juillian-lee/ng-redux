@@ -1,0 +1,25 @@
+import { NgRxAction } from '../NgRxAction';
+
+export enum ##STATE_NAME_CLASS##Actions {
+    LIST_##STATE_NAME_ACTIONS## = '[##STATE_NAME_ACTIONS##] - List ##STATE_NAME_ACTIONS## - ',
+    LIST_##STATE_NAME_ACTIONS##_SUCCESS = '[##STATE_NAME_ACTIONS##] - List ##STATE_NAME_ACTIONS## Success - ',
+    LIST_##STATE_NAME_ACTIONS##_ERROR = '[##STATE_NAME_ACTIONS##] - Error List ##STATE_NAME_ACTIONS## - ',
+}
+
+export class List##STATE_NAME_CLASS##Action extends NgRxAction<any> {
+    readonly type = ##STATE_NAME_CLASS##Actions.LIST_##STATE_NAME_ACTIONS##;
+}
+
+export class List##STATE_NAME_CLASS##SuccessAction extends NgRxAction<any> {
+    readonly type = ##STATE_NAME_CLASS##Actions.LIST_##STATE_NAME_ACTIONS##_SUCCESS;
+}
+
+export class List##STATE_NAME_CLASS##ErrorAction extends NgRxAction<any> {
+    readonly type = ##STATE_NAME_CLASS##Actions.LIST_##STATE_NAME_ACTIONS##_ERROR;
+}
+
+
+export type TypesActions =
+    List##STATE_NAME_CLASS##Action
+    | List##STATE_NAME_CLASS##SuccessAction
+    | List##STATE_NAME_CLASS##ErrorAction

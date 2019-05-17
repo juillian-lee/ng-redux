@@ -1,0 +1,32 @@
+import { Injectable } from "@angular/core";
+
+import { Actions, Effect, ofType } from '@ngrx/effects';
+import { mergeMap, map, catchError, filter } from 'rxjs/operators';
+import { of } from 'rxjs';
+
+import * as ##STATE_NAME##Actions from './##STATE_NAME##.actions';
+import { ##STATE_NAME_CLASS##Service } from './##STATE_NAME##.service';
+
+@Injectable()
+export class ##STATE_NAME_CLASS##Effects {
+
+    constructor(
+        private actions$: Actions,
+        private ##STATE_NAME##Service: ##STATE_NAME_CLASS##Service,
+    ) { }
+
+    @Effect()
+    load##STATE_NAME_CLASS##Action$ = this.actions$.pipe(
+        ofType<##STATE_NAME##Actions.List##STATE_NAME_CLASS##Action>(##STATE_NAME##Actions.##STATE_NAME_CLASS##Actions.LIST_##STATE_NAME_ACTIONS##),
+        mergeMap(payload => {
+            return this.##STATE_NAME##Service.list().pipe(
+                map((response: any) => {
+                    return new ##STATE_NAME##Actions.List##STATE_NAME_CLASS##SuccessAction(response.data);
+                }),
+                catchError((err: any) => {
+                    return of(new ##STATE_NAME##Actions.List##STATE_NAME_CLASS##ErrorAction(response.data));
+                })
+            );
+        })
+    );
+}

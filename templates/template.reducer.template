@@ -1,0 +1,32 @@
+import * as ##STATE_NAME##State from './##STATE_NAME##.state';
+import * as actions from './##STATE_NAME##.actions';
+
+export function ##STATE_NAME##Reducer(
+    state: ##STATE_NAME##State.##STATE_NAME_CLASS##State = ##STATE_NAME##State.initialState,
+    action: actions.TypesActions
+): ##STATE_NAME##State.##STATE_NAME_CLASS##State {
+
+    switch (action.type) {
+        case actions.##STATE_NAME_CLASS##Actions.LIST_##STATE_NAME_ACTIONS##:
+            return {
+                ...state,
+                isLoading: true,
+                list: []
+            }
+        case actions.##STATE_NAME_CLASS##Actions.LIST_##STATE_NAME_ACTIONS##_SUCCESS:
+            return {
+                ...state,
+                isLoading: false,
+                list: action.payload
+            }
+        case actions.##STATE_NAME_CLASS##Actions.LIST_##STATE_NAME_ACTIONS##_ERROR:
+            return {
+                ...state,
+                isLoading: false,
+                list: []
+            }
+        default:
+            return state;
+    }
+
+}

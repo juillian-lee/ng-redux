@@ -1,0 +1,29 @@
+import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
+import { STATE_NAME } from './##STATE_NAME##.state';
+import { ##STATE_NAME##Reducer } from './##STATE_NAME##.reducer';
+import { ##STATE_NAME_CLASS##Effects } from './##STATE_NAME##.effects';
+import { ##STATE_NAME_CLASS##StoreService } from './##STATE_NAME##-store.service';
+import { ##STATE_NAME_CLASS##Service } from './##STATE_NAME##.service';
+
+@NgModule({
+  declarations: [],
+  imports: [
+  StoreModule.forFeature(STATE_NAME, ##STATE_NAME##Reducer),
+      EffectsModule.forFeature([##STATE_NAME_CLASS##Effects]),
+  ],
+  exports: [
+      StoreModule,
+      EffectsModule,
+      HttpClientModule
+  ],
+  providers: [
+      ##STATE_NAME_CLASS##StoreService,
+      ##STATE_NAME_CLASS##Service
+  ]
+})
+export class ##STATE_NAME_CLASS##StoreModule { }

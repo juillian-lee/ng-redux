@@ -1,0 +1,18 @@
+export const STATE_NAME = '##STATE_NAME##';
+
+export interface ##STATE_NAME_CLASS##State {
+    isLoading: boolean;
+    list: any[];
+    ##STATE_NAME##: any;
+
+}
+
+export const initialState: ##STATE_NAME_CLASS##State = {
+    isLoading: false,
+    list: [],
+    ##STATE_NAME##: null
+}
+
+export const selectIsLoading = (state: ##STATE_NAME_CLASS##State) => state.isLoading;
+export const select##STATE_NAME_CLASS## = (state: ##STATE_NAME_CLASS##State) => state.##STATE_NAME##;
+export const selectList##STATE_NAME_CLASS## = (state: ##STATE_NAME_CLASS##State) => state.list;
